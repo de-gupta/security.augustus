@@ -35,13 +35,13 @@ final class TokenVersionVerifierImpl<U, V extends Comparable<V>> implements Toke
 	private TokenVersionVerificationResult<V> verifyResolvedVersion(final Token<U, V> token)
 	{
 		return Unfolding.beckon(userVersionResolver.versionForUser(token.user()))
-		                .cleave(v -> v.compareTo(token.version()) == 0,
-								TokenVersionVerificationSuccess::of,
-								_ -> TokenVersionVerificationFailure.of(
-						                TokenVersionVerificationFailureReason.VERSION_MISMATCH))
-		                .metamorphose(v -> (TokenVersionVerificationResult<V>) v)
+		                .<TokenVersionVerificationResult<V>>cleave(
+		                        v -> v.compareTo(token.version()) == 0,
+		                        TokenVersionVerificationSuccess::of,
+		                        _ -> TokenVersionVerificationFailure.of(
+		                                TokenVersionVerificationFailureReason.VERSION_MISMATCH))
 		                .rescue(TokenVersionVerificationFailure.of(
-				                TokenVersionVerificationFailureReason.VERSION_LOOKUP_FAILED));
+		                        TokenVersionVerificationFailureReason.VERSION_LOOKUP_FAILED));
 	}
 
 	private List<Portent<TokenVersionVerificationResult<V>>> exceptionally()
