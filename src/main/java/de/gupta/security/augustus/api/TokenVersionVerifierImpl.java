@@ -14,7 +14,7 @@ final class TokenVersionVerifierImpl<U, V extends Comparable<V>> implements Toke
 	@Override
 	public boolean verify(final Token<U, V> token)
 	{
-		return token.version().compareTo(userVersionResolver.versionForUser(token.user())) >= 0;
+		return token.version().compareTo(userVersionResolver.versionForUser(token.user())) == 0;
 	}
 
 	private TokenVersionVerifierImpl(final UserVersionResolver<U, V> userVersionResolver)
