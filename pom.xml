@@ -8,6 +8,10 @@
     <artifactId>security.augustus</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
+    <name>${artifactId}</name>
+    <description>A library for checking version of a token</description>
+    <url>https://github.com/de-gupta/security.augustus.git</url>
+
     <properties>
         <java.version>25</java.version>
         <maven.compiler.release>${java.version}</maven.compiler.release>
