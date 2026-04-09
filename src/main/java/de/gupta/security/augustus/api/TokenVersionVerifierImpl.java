@@ -3,11 +3,7 @@ package de.gupta.security.augustus.api;
 import de.gupta.aletheia.functional.Unfolding;
 import de.gupta.aletheia.trials.Fallible;
 import de.gupta.aletheia.trials.Portent;
-import de.gupta.security.augustus.domain.model.Token;
-import de.gupta.security.augustus.domain.model.TokenVersionVerificationFailure;
-import de.gupta.security.augustus.domain.model.TokenVersionVerificationFailureReason;
-import de.gupta.security.augustus.domain.model.TokenVersionVerificationResult;
-import de.gupta.security.augustus.domain.model.TokenVersionVerificationSuccess;
+import de.gupta.security.augustus.domain.model.*;
 
 import java.util.List;
 import java.util.function.Function;
@@ -40,7 +36,7 @@ final class TokenVersionVerifierImpl<U, V extends Comparable<V>> implements Toke
 		                        TokenVersionVerificationSuccess::of,
 		                        _ -> TokenVersionVerificationFailure.of(
 		                                TokenVersionVerificationFailureReason.VERSION_MISMATCH))
-		                .rescue(TokenVersionVerificationFailure.of(
+		                .ordain(TokenVersionVerificationFailure.of(
 		                        TokenVersionVerificationFailureReason.VERSION_LOOKUP_FAILED));
 	}
 
