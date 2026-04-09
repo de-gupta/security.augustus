@@ -16,7 +16,7 @@
     <url>https://github.com/de-gupta/security.augustus.git</url>
 
     <properties>
-        <security.dependencies.bom.version>0.2.0</security.dependencies.bom.version>
+        <security.dependencies.bom.version>0.2.1</security.dependencies.bom.version>
     </properties>
 
     <dependencyManagement>
