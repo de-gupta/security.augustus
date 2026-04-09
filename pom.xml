@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>security.augustus</artifactId>
-    <version>1.1.1-SNAPSHOT</version>
+    <version>1.2.0</version>
 
     <name>${project.artifactId}</name>
     <description>A library for checking version of a token</description>
@@ -57,6 +57,6 @@
         <connection>scm:git:ssh://git@github.com/de-gupta/security.augustus.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/de-gupta/security.augustus.git</developerConnection>
         <url>https://github.com/de-gupta/security.augustus.git</url>
-        <tag>HEAD</tag>
+        <tag>v1.2.0</tag>
     </scm>
 </project>
