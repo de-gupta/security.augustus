@@ -36,7 +36,7 @@ final class TokenVersionVerifierImpl<U, V extends Comparable<V>> implements Toke
 		                        TokenVersionVerificationSuccess::of,
 		                        _ -> TokenVersionVerificationFailure.of(
 		                                TokenVersionVerificationFailureReason.VERSION_MISMATCH))
-		                .ordain(TokenVersionVerificationFailure.of(
+		                .infuse(TokenVersionVerificationFailure.of(
 		                        TokenVersionVerificationFailureReason.VERSION_LOOKUP_FAILED));
 	}
 
