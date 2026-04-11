@@ -19,7 +19,7 @@ final class TokenVersionVerifierImpl<U, V extends Comparable<V>> implements Toke
 	}
 
 	@Override
-	public TokenVersionVerificationResult<V> verifyResult(final Token<U, V> token)
+	public TokenVersionVerificationResult<V> verify(final Token<U, V> token)
 	{
 		return Fallible.beckon(token)
 		               .metamorphose(this::verifyResolvedVersion, exceptionally())

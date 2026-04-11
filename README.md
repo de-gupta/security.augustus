@@ -36,12 +36,14 @@ import de.gupta.security.augustus.api.TokenVersionVerifierFactory;
 import de.gupta.security.augustus.api.UserVersionResolver;
 import de.gupta.security.augustus.domain.model.Token;
 
-record UserToken(String user, Long version) implements Token<String, Long> {}
+record UserToken(String user, Long version) implements Token<String, Long>
+{
+}
 
 UserVersionResolver<String, Long> resolver = user -> 7L;
 TokenVersionVerifier<String, Long> verifier = TokenVersionVerifierFactory.create(resolver);
 
-boolean current = verifier.verify(new UserToken("alice", 7L));
+boolean current = verifier.verifies(new UserToken("alice", 7L));
 ```
 
 If you need failure detail instead of a boolean, use `verifyResult(...)`.

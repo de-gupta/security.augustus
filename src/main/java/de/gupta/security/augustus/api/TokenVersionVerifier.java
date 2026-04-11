@@ -4,12 +4,13 @@ import de.gupta.security.augustus.domain.model.Token;
 import de.gupta.security.augustus.domain.model.TokenVersionVerificationResult;
 import de.gupta.security.augustus.domain.model.TokenVersionVerificationSuccess;
 
+@FunctionalInterface
 public interface TokenVersionVerifier<U, V extends Comparable<V>>
 {
-	TokenVersionVerificationResult<V> verifyResult(Token<U, V> token);
+	TokenVersionVerificationResult<V> verify(final Token<U, V> token);
 
-	default boolean verify(final Token<U, V> token)
+	default boolean verifies(final Token<U, V> token)
 	{
-		return verifyResult(token) instanceof TokenVersionVerificationSuccess<V>;
+		return verify(token) instanceof TokenVersionVerificationSuccess<V>;
 	}
 }

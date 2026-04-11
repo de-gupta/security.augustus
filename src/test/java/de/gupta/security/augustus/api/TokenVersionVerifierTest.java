@@ -1,10 +1,6 @@
 package de.gupta.security.augustus.api;
 
-import de.gupta.security.augustus.domain.model.Token;
-import de.gupta.security.augustus.domain.model.TokenVersionVerificationFailure;
-import de.gupta.security.augustus.domain.model.TokenVersionVerificationFailureReason;
-import de.gupta.security.augustus.domain.model.TokenVersionVerificationResult;
-import de.gupta.security.augustus.domain.model.TokenVersionVerificationSuccess;
+import de.gupta.security.augustus.domain.model.*;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -29,7 +25,7 @@ final class TokenVersionVerifierTest
 		{
 			final TokenVersionVerifier<String, Integer> verifier = TokenVersionVerifierFactory.create(_ -> 7);
 
-			assertThat(verifier.verifyResult(new TestToken("Alice", 7)))
+			assertThat(verifier.verify(new TestToken("Alice", 7)))
 					.isEqualTo(TokenVersionVerificationSuccess.of(7));
 		}
 
@@ -40,7 +36,7 @@ final class TokenVersionVerifierTest
 			final TokenVersionVerifier<String, Integer> verifier =
 					TokenVersionVerifierFactory.create(_ -> testCase.currentVersion());
 
-			assertThat(verifier.verifyResult(new TestToken("Alice", testCase.tokenVersion())))
+			assertThat(verifier.verify(new TestToken("Alice", testCase.tokenVersion())))
 					.isEqualTo(
 							TokenVersionVerificationFailure.of(TokenVersionVerificationFailureReason.VERSION_MISMATCH));
 		}
@@ -53,7 +49,7 @@ final class TokenVersionVerifierTest
 				throw new IllegalStateException("resolver unavailable");
 			});
 
-			assertThat(verifier.verifyResult(new TestToken("Alice", 7)))
+			assertThat(verifier.verify(new TestToken("Alice", 7)))
 					.isEqualTo(TokenVersionVerificationFailure.of(
 							TokenVersionVerificationFailureReason.VERSION_LOOKUP_FAILED,
 							"resolver unavailable"));
@@ -64,7 +60,7 @@ final class TokenVersionVerifierTest
 		{
 			final TokenVersionVerifier<String, Integer> verifier = TokenVersionVerifierFactory.create(_ -> null);
 
-			assertThat(verifier.verifyResult(new TestToken("Alice", 7)))
+			assertThat(verifier.verify(new TestToken("Alice", 7)))
 					.isEqualTo(TokenVersionVerificationFailure.of(
 							TokenVersionVerificationFailureReason.VERSION_LOOKUP_FAILED));
 		}
@@ -95,7 +91,7 @@ final class TokenVersionVerifierTest
 		{
 			final TokenVersionVerifier<String, Integer> verifier = TokenVersionVerifierFactory.create(_ -> 9);
 
-			assertThat(verifier.verify(new TestToken("Alice", 9))).isTrue();
+			assertThat(verifier.verifies(new TestToken("Alice", 9))).isTrue();
 		}
 
 		@ParameterizedTest
@@ -104,7 +100,7 @@ final class TokenVersionVerifierTest
 		{
 			final TokenVersionVerifier<String, Integer> verifier = _ -> result;
 
-			assertThat(verifier.verify(new TestToken("Alice", 9))).isFalse();
+			assertThat(verifier.verifies(new TestToken("Alice", 9))).isFalse();
 		}
 
 		private Stream<Arguments> unsuccessfulResults()
